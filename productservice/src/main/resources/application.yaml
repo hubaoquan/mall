@@ -1,0 +1,23 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: product-server
+  datasource:
+    url: jdbc:mysql://localhost:3306/hbq_mall?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    password: 123456
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
+# mybatis
+mybatis:
+  check-config-location: true
+  mapper-locations: classpath:mapperxml/*.xml
+  type-aliases-package: cn.hubaoquan.mall.productservice.mapper
+#eureka
+eureka:
+  client:
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
