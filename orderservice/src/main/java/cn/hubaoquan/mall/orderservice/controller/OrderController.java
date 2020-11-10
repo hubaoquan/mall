@@ -6,6 +6,7 @@ import cn.hubaoquan.mall.orderservice.mapper.OrderMapper;
 import cn.hubaoquan.mall.orderservice.model.Order;
 import cn.hubaoquan.mall.orderservice.model.OrderDetail;
 import cn.hubaoquan.mall.productservice.model.Product;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -69,9 +70,11 @@ public class OrderController {
         return "ok";
     }
 
+    //注入商品服务客户端
     @Autowired
     ProductClient productClient;
 
+    //远程调用实现三
     @RequestMapping("/createByFeign")
     public String createByFeign(@RequestParam Integer userId, @RequestParam Integer productId, @RequestParam Integer quantity) {
         Product product = productClient.findById(productId);
@@ -87,5 +90,20 @@ public class OrderController {
         orderDetailMapper.insert(orderDetail);
         return "ok Feign";
     }
+
+    @RequestMapping("/failTest")
+    //@HystrixCommand(fallbackMethod = "failTestFail")
+    public String failTest(String s)
+    {
+        return productClient.failTest();
+    }
+
+//    private String failTestFail(String s)
+//    {
+//        System.out.println("调用productClient::failTestFail失败");
+//        return "500";
+//    }
+
+
 
 }

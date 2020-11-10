@@ -19,7 +19,36 @@ eureka:
     serviceUrl:
       registerWithEureka: true
       defaultZone: http://localhost:8761/eureka/
-#Ribbon负载策略选择，注意策略选择要配置在调用方。
+
+##################     Ribbon负载策略选择，注意策略选择要配置在调用方。
 product-server:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+###################   feign 和 hystrix 哪个超时时间设置的短，则哪个设置生效   ##############
+# Feign 默认超时时间    hystrix默认时间1秒   开启hystrix
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 1500
+        readTimeout: 1500
+# 禁用超时时间 如果 feign有超时时间此设置会失效
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false
+
+#com\netflix\hystrix\HystrixCommandProperties.java
+# 设置hystrix超时时间 execution.isolation.thread.timeoutInMilliseconds
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1300
