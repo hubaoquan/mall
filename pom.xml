@@ -61,6 +61,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -73,7 +80,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <!--spring boot打包的话需要指定一个唯一的入门-->
+    <!--spring boot打包的话需要指定一个唯一的入kou-->
     <build>
         <plugins>
             <plugin>
@@ -95,5 +102,5 @@
 
         </plugins>
     </build>
-
+<packaging>pom</packaging>
 </project>
